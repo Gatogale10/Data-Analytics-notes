@@ -166,6 +166,167 @@ db["age"] = pd.to_numeric(db["age"]) #Usamos una funcion de pandas
 db["age"] = db["age"].astype(int)
 
 
+#============================= ANALISIS ESTADISTICO BASICO Y AGRUPACIÓN=======================
+
+# Para hacer un analisis estadistico debemos selecionar un columna
+# bueno esto es logico por ejemplo para para la media, mediana y modo si queremos la moda 
+# de cierta caracteristica por ejemplo altura pues selecionamos esa columna
+#y despues de esto ponemos el metodo que nos interesa
+
+
+#-------- Ordenar--------------
+
+
+#Ordenar de mayor a menor
+db.sort_values("age",ascending=False)
+
+#Ordenar de menor a mayor
+db.sort_values("age",ascending=True)
+
+
+#Tambien podemos ordenar por dos columnas esto se puede hacer en un solo comando 
+
+db.sort_values(["age,addiction_score"],ascending=[True,False])
+
+#Para selecionar o ver columas podemos hacer lo siguiente
+
+db["age"]
+
+
+#Tambien se pueden seleccionar varias
+db[["age,scroll_velocity,ASI"]]
+
+#------Analisis estadistico
+
+print(db.columns)
+
+db["scroll_velocity"].mean()
+
+db["scroll_velocity"].median()
+
+db['gasto'].mode() # Moda
+
+#Este dato no es tan tipico que salga
+db['gasto'].std() # Desviacion estandar
+
+db['gasto'].var() # Varianza
+
+db['gasto'].min() # Minimo
+
+db['gasto'].max() # Maximo
+
+#Esto cuenta cuantos datos no nulos hay en la columna
+db['scroll_velocity'].count()
+
+#Esto suma todos los datos de la columna siempre que sean reales
+db['scroll_velocity'].sum()
+
+
+#---------Veamos como filtrar por filas los datos--------
+
+# Esto es para filtrar por columna, o sea queremos los datos de esa columna especificamente 
+# de un tipo de dato
+
+Filtroedad = db[db["age"]==20]
+
+
+#Dentro de este comando o funcion ponemos las condiciones que queramos para 
+# la filtrar los datos desados en la columna
+
+#Por ejemplo podemos combinar con condicionales como or o and varias veces para filtrar
+# la columna.
+
+FiltroCondicionales = db[ (db["age"]==20) or (db["age"]==21)]
+
+
+
+#Al igual podemos filtrar por una lista de valores, o sea damos los valores que salen 
+# en la lista.
+FiltroLista = db[db["age"].isin([21,22,23,24])]
+
+#--------------Agrupar y calcular
+
+#Este comando nos da el promedio de cada caracteristica de una determinada columna
+# dada la caracteristica de otra columna
+
+#Ejemplo el srcoll promedio por cada edad 
+#esto es comando combianado, no necesariamente el metodo groupby tiene que ir 
+#con las siguientes funciones, solo son algunas formas en que podemos aprovecharlo
+#y combinarlo cuando nos sea conveniente.
+
+
+#Lo que dice primero agrupa por edad, que edades tienes, despues de esto
+#saca el promedio de scroll por cada edad que tengo
+db.groupby("age")["scroll_velocity"].mean()
+
+# y podemos usar los mismos comandos anteriormente vistos para esto 
+# lo unico que cambia es que estamos agrupando los datos por cierta columna y ya.
+
+# Suma de gasto por region
+db.groupby('region')['gasto'].sum()
+# Conteo de clientes por region
+db.groupby('region')['cliente_id'].count()
+
+
+#Tambien podemos hacerlo para que nos muestren distintas medidas de tendencia
+# o carateristicas con el comando agg y damos que queremos.
+db.groupby('age')['scroll_velocity'].agg(['mean', 'median', 'std', 'count'])
+
+
+#En todos estos casos podemos ordenar de mayor a menor con la propiedad
+# sort_value(ascending=True)
+
+db.groupby("age")["scroll_velocity"].mean().sort_values(ascending=True)
+
+
+
+#-------------Colocar nuevas columnas-----
+
+#Podemos dedicir agregar columnas con valores booleanos
+
+db["Nueva_columna"] = db["age"] >20
+
+# Tambien columnas que sean el multiplo de otra etc....
+
+db["Nueva_columna_2"] = db["age"] * 2
+
+# Se puede combinar con todo lo que hicimos anteriormente que sea logico 
+# solo es igualarla
+
+
+#Esto si no se vio antes pero es para una columna con datos cualtativos mas alla de 
+# True o False, esto obvio con alguna condición,
+db["Nueva_columna"] = db['age'].apply(lambda x: 'Adulto' if x > 24 else 'Joven')
+
+
+
+
+#----------------Visualización de los datos
+
+
+#Una parte importante es saber mostrar los datos con graficas,vemos las mas 
+# sencillas para mostrar nuestros datos y visualizar mejor tendencias.
+
+
+
+
+
+
+
+
+
+
+
+
+
+#=============================VISUALIZACION DE LOS DATOS==============================
+
+
+
+
+
+
+
 
 
 
