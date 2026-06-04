@@ -1,6 +1,12 @@
 #Es importante importante la libreria de pandas como pd es un standar
 import pandas as pd
 
+import seaborn as sns
+
+import matplotlib.pyplot as plt
+
+import numpy as np
+
 #Despues se le tiene que asiganar un nombre a esta base de datos que ha sido importada
 #en este caso se le pone db pero podria ser cualquiera.
 db = pd.read_csv("datasets/tiktok_instagram_global_100countries.csv")
@@ -301,13 +307,101 @@ db["Nueva_columna"] = db['age'].apply(lambda x: 'Adulto' if x > 24 else 'Joven')
 
 
 
-#----------------Visualización de los datos
-
+#=============================VISUALIZACION DE LOS DATOS==============================
 
 #Una parte importante es saber mostrar los datos con graficas,vemos las mas 
 # sencillas para mostrar nuestros datos y visualizar mejor tendencias.
 
 
+#En este caso usaremos la libreria seaborn para visualizar los datos de manera estadistica.
+# ya que continene muchas funciones que muestras los datos con herramientas visuales estadisticas
+# conocidas.
+
+#Esta funcion de seaborn hace un histrograma de 10 barras.
+# !!!!IMPORTANTE RECORDAR QUE PLOT EN PYTHON ES COMO IMPRIMIR UNA IMAGEN !!!!!!!
+
+sns.histplot(db["age"],bis=10)
+
+#PODEMOS MODIFICAR LAS PROPIDADES DE LA IMAGEN A IMPRIMIR 
+# y para esto usamos la libreria matplotlib.pyplot as plt.
+
+plt.title("Distrubucion de edades")
+
+plt.xlabel("Edades")
+
+plt.ylabel("Personas")
+
+#PARA VER LA GRAFICA HACEMOS LO SIGUIENTE 
+
+plt.show()
+
+
+
+#------------Es muy importante la dispersion de los datos y caracteristicas como outliers
+
+sns.boxplot(x="age",y="scroll_time",data=db)
+
+plt.title("Scroll promedio por edad")
+
+plt.show()
+
+
+#---La grafica de barras es de las mas comunes para visualizar datos
+
+sns.barplot(x="age",y="scroll_time",data=db)
+
+
+plt.title("Grafica edad por promedio de scroll")
+
+
+plt.xlabel("Edad")
+
+plt.ylabel("Scroll_time")
+
+plt.show()
+
+
+
+#---------------Grafica de dispersión - esta nos sirve para ver la correlación
+# es una grafica discreta y podemos ver una regresion lineal simple.
+
+sns.scatterplot(x="age",y="scroll_speed",data=db)
+
+plt.title("Grafica de dispersión")
+
+plt.xlabel("Edad")
+
+plt.ylabel("scrool_speed")
+
+plt.show()
+
+
+#----------------Por ultimo una grafica de lineas nos ayuda a entender la tendencia en el tiempo
+# se ve como las graficas de las acciones en la bolsa, evolución respecto al tiempo.
+# aqui no usaremos seanborn basta con usar plt.
+
+
+plt.plot(db["age"],db["scroll_velocity"])
+
+plt.title("Grafica de lineas tendencia del tiempo")
+
+plt.xlabel("Edad")
+
+plt.ylabel("Meses")
+
+plt.show()
+
+
+# ENTONCES EN RESUMEN PARA RECORDAD MAS FACIL LOS COMANDOS DE SEANBORN 
+# SOLO NECESITAMOS RECORDAR QUE QUEREMOS QUEREMOS UNA GRAFICA DE BARRAS 
+# SOLO COLCAMOS BAR SEGUIMOS DE PLOT -> BARPLOT Y ASI CON LOS DEMAS, SIEMPRE
+# VA PLOT AL FINAL DE LO QUE QUERAMOS.
+
+
+#y hasta aqui termina la guia basica de pandas, se pondra una de numpy 
+# de matplot para imprimir mejores graficas. 
+# de igual forma se haran otros archivos .py donde se muestre un pandas intermedio 
+# y tambien uno con comandos mas avanzados.
 
 
 
@@ -316,10 +410,6 @@ db["Nueva_columna"] = db['age'].apply(lambda x: 'Adulto' if x > 24 else 'Joven')
 
 
 
-
-
-
-#=============================VISUALIZACION DE LOS DATOS==============================
 
 
 
