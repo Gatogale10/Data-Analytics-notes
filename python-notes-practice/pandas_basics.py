@@ -172,7 +172,7 @@ db["age"] = pd.to_numeric(db["age"]) #Usamos una funcion de pandas
 db["age"] = db["age"].astype(int)
 
 
-#============================= ANALISIS ESTADISTICO BASICO Y AGRUPACIÓN=======================
+#============================ ANALISIS ESTADISTICO BASICO Y AGRUPACIÓN=======================
 
 # Para hacer un analisis estadistico debemos selecionar un columna
 # bueno esto es logico por ejemplo para para la media, mediana y modo si queremos la moda 
